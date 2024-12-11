@@ -35,89 +35,43 @@ Follow these steps to set up your own instance of the online store.
    git clone https://github.com/your-username/online-store.git
    cd online-store
 2. **Project Directory Structure**:
-   C:.
-│   catatan.txt
-│   index.php
-│   onlinestore.sql
-│   
-├───api
-│       app.py
-│       app2.py
-│       app3.py
-│       app4.py
-│       app5.py
-│       app6.py
-│       auth.php
-│       cart.php
-│       categories.php
-│       chatbot.php
-│       database.php
-│       index.html
-│       jwt.php
-│       login.php
-│       mysqlstatus.php
-│       notifications.php
-│       orders.php
-│       products.php
-│       profile.php
-│       register.php
-│       reviews.php
-│       segmentasipelanggan.php
-│       transaksi.php
-│       users.php
-│
-└───public
-    │   cart.html
-    │   checkout.html
-    │   index.html
-    │   login.html
-    │   manage-categories.html
-    │   manage-products.html
-    │   manage-users.html
-    │   notifications.html
-    │   offline.html
-    │   orders.html
-    │   product-list.html
-    │   recomended.html
-    │   register.html
-    │   segmentasipelanggan.html
-    │   sentiment.html
-    │   service-worker.js
-    │   stokpredict.html
-    │   transaksi.html
-    │   user-profile.html
-    │
-    ├───css
-    │       styles.css
-    │
-    ├───images
-    ├───js
-    │       api_endpoints.json
-    │       cart.js
-    │       chatbot.js
-    │       checkout.js
-    │       config.js
-    │       config2.js
-    │       endpoints.json
-    │       manage-categories.js
-    │       manage-products.js
-    │       manage-users.js
-    │       notifications.js
-    │       orders.js
-    │       product-list.js
-    │       products.js
-    │       recomended.js
-    │       segmentasi.js
-    │       sentiment.js
-    │       stokpredict.js
-    │       transaksi.js
-    │       userprofile.js
-    │       workerconfig.js
-    │
-    └───templates
-            footer.html
-            header.html
-            sidebar.html
+   Here is the structure of the project directory, showcasing the files and subfolders:
+C:. │ catatan.txt │ index.php │ onlinestore.sql ├───api │ │ app.py │ │ app2.py │ │ app3.py │ │ app4.py │ │ app5.py │ │ app6.py │ │ auth.php │ │ cart.php │ │ categories.php │ │ chatbot.php │ │ database.php │ │ index.html │ │ jwt.php │ │ login.php │ │ mysqlstatus.php │ │ notifications.php │ │ orders.php │ │ products.php │ │ profile.php │ │ register.php │ │ reviews.php │ │ segmentasipelanggan.php │ │ transaksi.php │ │ users.php │ └───public │ │ cart.html │ │ checkout.html │ │ index.html │ │ login.html │ │ manage-categories.html │ │ manage-products.html │ │ manage-users.html │ │ notifications.html │ │ offline.html │ │ orders.html │ │ product-list.html │ │ recomended.html │ │ register.html │ │ segmentasipelanggan.html │ │ sentiment.html │ │ service-worker.js │ │ stokpredict.html │ │ transaksi.html │ │ user-profile.html │ ├───css │ │ │ styles.css │ ├───images │ ├───js │ │ │ api_endpoints.json │ │ │ cart.js │ │ │ chatbot.js │ │ │ checkout.js │ │ │ config.js │ │ │ config2.js │ │ │ endpoints.json │ │ │ manage-categories.js │ │ │ manage-products.js │ │ │ manage-users.js │ │ │ notifications.js │ │ │ orders.js │ │ │ product-list.js │ │ │ products.js │ │ │ recomended.js │ │ │ segmentasi.js │ │ │ sentiment.js │ │ │ stokpredict.js │ │ │ transaksi.js │ │ │ userprofile.js │ │ │ workerconfig.js │ └───templates │ │ footer.html │ │ header.html │ │ sidebar.html
+
+
+## Explanation of the Directory Structure
+
+- **C:**
+  - `catatan.txt`: A text file for notes.
+  - `index.php`: The entry point for the PHP application.
+  - `onlinestore.sql`: SQL script to set up the database.
+  
+- **api/**
+  - Contains various Python and PHP scripts handling core functionalities such as user authentication (`auth.php`), cart management (`cart.php`), product handling (`products.php`), and more.
+  - Also includes HTML templates for API routes.
+
+- **public/**
+  - Contains the HTML pages used in the front-end of the project.
+  - Includes pages like `cart.html`, `checkout.html`, `orders.html`, and `recomended.html`.
+
+- **css/**
+  - Contains the `styles.css` file for styling the front-end pages.
+
+- **images/**
+  - Stores image files used throughout the project.
+
+- **js/**
+  - Contains JavaScript files for handling the dynamic behavior of the front-end.
+  - Files like `cart.js`, `checkout.js`, `products.js`, and `recomended.js` manage different aspects of the UI functionality.
+
+- **templates/**
+  - Contains reusable HTML templates for common elements like the `footer.html`, `header.html`, and `sidebar.html`.
+
+---
+
+This structure ensures a modular organization, separating the back-end (API) logic from the front-end user interface, and organizing the project into clearly defined folders for easy navigation and management.
+
+
 
 
 ### Penjelasan:

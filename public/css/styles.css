@@ -1,0 +1,224 @@
+/* Sidebar Wrapper */
+#sidebar-wrapper {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Sidebar Heading */
+.sidebar-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+}
+
+/* Sidebar Menu Items */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  display: block;
+  margin: 0;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+}
+
+/* Main Content */
+main {
+  margin-left: 250px; /* Adjust to match the sidebar width */
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+      width: 200px; /* Adjust for smaller screens */
+  }
+
+  main {
+      margin-left: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  #sidebar-wrapper {
+      position: absolute;
+      width: 100%;
+      height: auto;
+  }
+
+  main {
+      margin-left: 0;
+  }
+}
+
+/* Footer */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 15px 0;
+}
+
+footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+/* Navbar Hover Effect */
+.navbar a {
+  text-decoration: none;
+  color: #333; /* Warna teks default */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+  background-color: #007bff; /* Warna latar hover */
+  color: white; /* Warna teks saat hover */
+  text-decoration: none; /* Pastikan tidak ada underline */
+}
+
+/* Navbar Teks Aktif (Optional) */
+.navbar .active a {
+  background-color: #007bff; /* Warna latar untuk item aktif */
+  color: white; /* Warna teks aktif */
+  text-decoration: none;
+}
+
+.button-cell {
+  text-align: center;  /* Memastikan tombol berada di tengah kolom */
+  width: 150px;  /* Menentukan lebar kolom tombol */
+}
+
+/* Styling untuk tombol "Update Status" */
+.update-status-btn {
+  padding: 10px 20px; /* Memberikan padding yang lebih besar untuk tombol */
+  background-color: #4CAF50; /* Warna latar belakang hijau */
+  color: white; /* Warna teks putih */
+  border: none; /* Menghilangkan border default */
+  border-radius: 5px; /* Membuat sudut tombol melengkung */
+  font-size: 16px; /* Ukuran font yang cukup besar */
+  cursor: pointer; /* Menunjukkan kursor pointer saat hover */
+  transition: background-color 0.3s ease; /* Efek transisi saat hover */
+}
+
+/* Efek hover pada tombol */
+.update-status-btn:hover {
+  background-color: #45a049; /* Warna hijau yang lebih gelap saat hover */
+}
+
+/* Efek fokus pada tombol (ketika tombol aktif) */
+.update-status-btn:focus {
+  outline: none; /* Menghilangkan outline default pada tombol */
+  box-shadow: 0 0 5px rgba(72, 143, 34, 0.7); /* Menambahkan efek shadow saat fokus */
+}
+
+/* Responsif - Menyesuaikan ukuran tombol di perangkat kecil */
+@media (max-width: 600px) {
+  .update-status-btn {
+    width: 100%; /* Tombol akan memenuhi lebar layar pada perangkat kecil */
+    font-size: 14px; /* Ukuran font lebih kecil di layar kecil */
+  }
+}
+
+/* Chatbot Button */
+.chatbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+
+.chatbot-button .btn {
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 16px;
+}
+
+/* Chatbot Container */
+.chatbot-container {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.chatbot-header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 70px); /* Adjust height after header */
+  justify-content: space-between;
+}
+
+.chatbox {
+  height: 80%;
+  overflow-y: auto;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+#chat-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+#send-message {
+  margin-top: 10px;
+}
+
+/* Responsiveness for mobile */
+@media (max-width: 576px) {
+  .chatbot-container {
+    width: 90%;
+    bottom: 60px;
+  }
+}

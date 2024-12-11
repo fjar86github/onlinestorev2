@@ -1,0 +1,86 @@
+Solusi 1: Gunakan Domain Lokal Valid dengan Hosts File
+Edit file hosts pada komputer Anda:
+
+Windows:
+Buka C:\Windows\System32\drivers\etc\hosts dengan teks editor seperti Notepad (dengan hak akses admin).
+Linux/Mac:
+Buka terminal dan edit file /etc/hosts dengan perintah:
+
+sudo nano /etc/hosts
+Tambahkan entri berikut:
+127.0.0.1   myonlinestore.local
+Simpan perubahan.
+
+Akses situs Anda  browser dengan URL baru:
+
+http://myonlinestore.local/onlinestorev2/public.
+Di Google Analytics, gunakan http://myonlinestore.local/onlinestorev2/public sebagai URL situs.
+
+
+
+"""
+Berikut adalah contoh curl untuk mengakses dua endpoint yang ada di API Anda, 
+yaitu untuk mendapatkan rekomendasi produk menggunakan KNN dan SVD.
+
+1. curl untuk mendapatkan rekomendasi produk menggunakan KNN:
+curl -X GET http://127.0.0.1:5000/api/recommend_knn/1
+Penjelasan:
+
+GET digunakan untuk meminta data dari server.
+http://127.0.0.1:5000/api/recommend_knn/1 adalah URL endpoint untuk mendapatkan rekomendasi 
+produk berdasarkan UserID = 1. Anda dapat mengganti 1 dengan UserID yang diinginkan.
+2. curl untuk mendapatkan rekomendasi produk menggunakan SVD:
+
+curl -X GET http://127.0.0.1:5000/api/recommend_svd/1
+Penjelasan:
+
+GET digunakan untuk meminta data dari server.
+http://127.0.0.1:5000/api/recommend_svd/1 adalah URL endpoint untuk mendapatkan 
+rekomendasi produk menggunakan metode SVD berdasarkan UserID = 1. Anda dapat mengganti 1 dengan UserID 
+yang diinginkan.
+3. Jika Anda ingin mengubah parameter atau menambahkannya (misalnya jumlah tetangga 
+pada KNN atau jumlah komponen pada SVD), Anda dapat menambahkan parameter di query string, contohnya:
+KNN dengan jumlah tetangga 10:
+
+curl -X GET "http://127.0.0.1:5000/api/recommend_knn/1?n_neighbors=10"
+SVD dengan jumlah komponen 5:
+
+curl -X GET "http://127.0.0.1:5000/api/recommend_svd/1?n_components=5"
+Pastikan server Flask Anda berjalan di http://127.0.0.1:5000/ atau sesuaikan alamat jika Anda 
+menjalankan aplikasi pada alamat atau port yang berbeda.
+
+Logika yang digunakan di dalam output dan data yang kamu berikan terlihat sudah benar jika tujuan dari sistem KNN (K-Nearest Neighbors) adalah untuk merekomendasikan produk berdasarkan kesamaan dengan produk yang sebelumnya dibeli oleh pengguna.
+
+Berikut adalah penjelasan dan analisis dari apa yang terjadi berdasarkan data yang kamu berikan:
+
+1. Data Transaksi:
+Kamu memiliki data transaksi dengan beberapa kolom seperti Nomor Pesanan, Total Bayar, Status Pembayaran, Status Pesanan, Tanggal Pesanan, Id Produk, Nama Produk, Harga, Jumlah Yang Dipesan, Nama Kategori, Stok Produk, dan Rerata Rating.
+Dalam data tersebut, beberapa produk yang dibeli pengguna adalah:
+The Alchemist (dalam kategori Books),
+iPhone 14 (dalam kategori Electronics),
+T-Shirt (dalam kategori Clothing),
+Smart Watch (dalam kategori Electronics),
+Coffee Mug (dalam kategori Clothing).
+2. Rekomendasi Produk (Output KNN):
+Sistem memberikan rekomendasi berupa produk "Coffee Mug" berdasarkan model KNN.
+Dalam hal ini, produk "Coffee Mug" mungkin memiliki kemiripan dengan 
+produk yang sebelumnya dibeli oleh pengguna, terutama jika ada keterkaitan dengan kategori 
+produk yang dibeli sebelumnya, seperti Clothing.
+3. Penjelasan Logika:
+Model KNN kemungkinan menganalisis produk yang dibeli sebelumnya oleh pengguna dan membandingkannya dengan produk lainnya yang memiliki kemiripan dalam hal kategori, rating, atau fitur lainnya.
+"Coffee Mug" dipilih karena memiliki kemiripan dengan produk lain dalam kategori Clothing, yang sudah dibeli oleh pengguna sebelumnya (misalnya T-Shirt).
+4. Konfirmasi Logika:
+Jika KNN diterapkan dengan cara ini, maka Coffee Mug sebagai produk yang 
+direkomendasikan adalah hasil yang wajar, karena produk ini berasal dari kategori 
+yang sama (Clothing) dengan produk yang sudah dibeli oleh pengguna.
+
+Produk-produk lain yang ada dalam daftar, seperti The Alchemist atau iPhone 14, 
+mungkin tidak muncul dalam rekomendasi karena mereka berasal dari kategori yang berbeda 
+atau mungkin tidak memenuhi kriteria kemiripan yang ditetapkan dalam model KNN.
+
+Kesimpulan:
+Jadi, jika tujuan dari sistem KNN adalah untuk memberikan rekomendasi berdasarkan 
+produk yang relevan dengan kategori atau karakteristik produk yang dibeli oleh pengguna, 
+maka rekomendasi "Coffee Mug" adalah logis. Ini terjadi karena produk tersebut memiliki 
+keterkaitan dengan produk-produk yang sudah dibeli sebelumnya (dalam kategori Clothing).
+"""

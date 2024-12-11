@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pengelolaan Notifikasi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6PQJL3LG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2K6PQJL3LG');
+    </script>
+</head>
+
+<body>
+    <header id="header"></header>
+
+    <div id="sidebar-wrapper">
+        <nav id="sidebar"></nav>
+    </div>
+    <!-- Chatbot Button -->
+    <div id="chatbot-button" class="chatbot-button">
+        <button class="btn btn-primary">Chat with Us</button>
+    </div>
+    <!-- Chatbot Container (hidden by default) -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div class="chatbot-header">
+            <h5>Chatbot</h5>
+            <button id="close-chatbot" class="btn btn-sm btn-danger">X</button>
+        </div>
+        <div class="chatbot-body">
+            <div id="chatbox" class="chatbox">
+                <p>Halo, ini layanan pesan singkat untuk mengetahui informasi pada data spesifik yang anda pilih</p>
+                <p>Anda dapat memasukan dengan ketentuan:</p>
+                </p>
+                <p>product [spasi] nama produk</p>
+                <p>order [spasi] nomorpesanan</p>
+                <p>category [spasi] nama categori</p>
+            </div>
+            <input id="chat-input" type="text" placeholder="Type your message..." />
+            <button id="send-message" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+    <main style="margin-left: 250px; padding: 20px;">
+        <h1>Data Notifikasi Pengguna</h1>
+        <p id="userGreeting">Memuat data pengguna...</p>
+        <div class="form-group">
+            <label for="notifid">Id Notifikasi:</label>
+            <input type="text" id="notifid" class="form-control" placeholder="kode notifikasi terisi otomatis" disabled>
+        </div>
+        <div class="form-group">
+            <label for="useridselect">Userid:</label>
+            <select id="useridselect" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label for="notiftoken">Token:</label>
+            <input type="text" id="notiftoken" class="form-control" placeholder="Masukkan token notifikasi">
+        </div>
+        <div class="form-group">
+            <label for="notifpesan">Pesan:</label>
+            <input type="text" id="notifpesan" class="form-control" placeholder="Masukkan pesan notifikasi">
+        </div>
+        <div class="form-group">
+            <label for="notiftype">Type:</label>
+            <select id="notiftype" class="form-control">
+                <option value="unread">Unread</option>
+                <option value="read">Read</option>
+                <option value="deleted">Deleted</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" id="addnotifButton" onclick="addnotif()">Tambah Notifikasi</button>
+        <button class="btn btn-primary" id="updatenotifButton" onclick="updateNotif()" disabled>Update
+            Notifikasi</button>
+        <button class="btn btn-warning" id="cancelnotifButton" onclick="cancelNotif()" disabled>Batal</button>
+        <div class="input-group mb-3">
+            <input type="text" id="searchInput" class="form-control"
+                placeholder="Search for notifications by message/pesan..." />
+            <button class="btn btn-outline-primary" id="searchButton">Search</button>
+        </div>
+        <hr>
+        <p>Notifikasi pengguna yang tersedia:</p>
+        <div id="loadingCategories" class="text-center" style="display:none;">Memuat notifikasi...</div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id Notifikasi</th>
+                    <th>User Id</th>
+                    <th>Token</th>
+                    <th>Pesan</th>
+                    <th>Tipe</th>
+                    <th>Tanggal dibuat</th>
+                    <th>Tanggal diperbaharui</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="categoryContainer"></tbody>
+        </table>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/config2.js"></script>
+    <script src="./js/chatbot.js"></script>
+    <script src="js/notifications.js"></script>
+
+</body>
+
+</html>

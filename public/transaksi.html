@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Lihat Data Transaksi Semua pengguna</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6PQJL3LG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2K6PQJL3LG');
+  </script>
+</head>
+
+<body>
+  <header id="header"></header>
+
+  <div id="sidebar-wrapper">
+    <nav id="sidebar"></nav>
+  </div>
+  <!-- Chatbot Button -->
+  <div id="chatbot-button" class="chatbot-button">
+    <button class="btn btn-primary">Chat with Us</button>
+  </div>
+  <!-- Chatbot Container (hidden by default) -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <h5>Chatbot</h5>
+      <button id="close-chatbot" class="btn btn-sm btn-danger">X</button>
+    </div>
+    <div class="chatbot-body">
+      <div id="chatbox" class="chatbox">
+        <p>Halo, ini layanan pesan singkat untuk mengetahui informasi pada data spesifik yang anda pilih</p>
+        <p>Anda dapat memasukan dengan ketentuan:</p>
+        </p>
+        <p>product [spasi] nama produk</p>
+        <p>order [spasi] nomorpesanan</p>
+        <p>category [spasi] nama categori</p>
+      </div>
+      <input id="chat-input" type="text" placeholder="Type your message..." />
+      <button id="send-message" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+
+  <main style="margin-left: 250px; padding: 20px;">
+    <h1>Halaman Riwayat Transaksi Pengguna</h1>
+    <p id="userGreeting">Memuat data transaksi...</p>
+    <p>Data Riwayat Transaksi:</p>
+    <div id="loadingCategories" class="text-center" style="display:none;">Memuat transaksi...</div>
+    <div class="form-group">
+      <label for="dataopsi">Pilih Data yang mau disajikan</label>
+      <select id="dataopsi" class="form-control">
+        <option value=0>Pilih Data Penjualan Produk</option>
+        <option value=1>Data Penjualan Produk</option>
+        <option value=2>Data Penjualan Masing Kategori Produk</option>
+        <option value=3>Prediksi Pendapatan Potensial</option>
+        <option value=4>Data Pesanan Produk dan Anggota</option>
+        <option value=5>Data Rating Produk</option>
+        <option value=6>Data Total Belanja Pelanggan </option>
+        <option value=7>Data Pembelian Pengguna </option>
+        <option value=7>Total Penjualan Perbulan </option>
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search for data..." />
+      <button class="btn btn-outline-primary" id="searchButton">Search</button>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+
+        </tr>
+      </thead>
+      <tbody id="categoryContainer"></tbody>
+    </table>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="./js/config2.js"></script>
+  <script src="./js/chatbot.js"></script>
+  <script src="js/transaksi.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .login-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6PQJL3LG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2K6PQJL3LG');
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+            <div id="message" class="message"></div>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Login here</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        var apiUrlfrontend = '';
+        window.addEventListener('DOMContentLoaded', async () => {
+            await ApiConfig.loadConfig("apiUrl"); // Memastikan konfigurasi dimuat
+            apiUrlfrontend = ApiConfig.getApiUrl();
+        });
+
+        // Fungsi untuk mengecek status MySQL dan mengembalikan nilai true/false
+        async function checkMySQLStatus() {
+            try {
+                // Mengambil status dari API
+                const response = await fetch(`${apiUrlfrontend}/mysqlstatus.php`);
+
+                // Mengecek apakah response berhasil (status code 200)
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // Mengembalikan true jika status MySQL online
+                    return data.status === 'online';
+                } else {
+                }
+            } catch (error) {
+                // Menangani error jika API tidak dapat dijangkau
+                return false; // Jika terjadi error, anggap status offline
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Validasi email sebelum mengirimkan data
+            if (!validateEmail(email)) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+            const status = await checkMySQLStatus();
+            console.log('Status MySQL server add product:', status ? 'Online' : 'Offline');
+            if (status) {
+                try {
+                    const response = await fetch(`${apiUrlfrontend}/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, password })
+                    });
+
+                    const result = await response.json();
+
+                    // Menangani hasil dari API
+                    if (response.ok) {
+                        messageDiv.className = 'message success';
+                        messageDiv.textContent = result.message;
+                    } else {
+                        messageDiv.className = 'message error';
+                        messageDiv.textContent = result.message;
+                    }
+                } catch (error) {
+                    // Menangani error jika permintaan gagal
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    console.error('Error:', error);
+                }
+            } else {
+                const token = localStorage.getItem('token');
+                const message = {
+                    token,
+                    users: [{
+                        email,
+                        password,
+                        name
+                    }]
+                };
+                // Base URL of the RabbitMQ API
+                await ApiConfig.loadConfig("rabbitmqusers"); // Memastikan konfigurasi dimuat
+                const baseUrl = ApiConfig.getApiUrl();
+                try {
+                    const response = await fetch(`${baseUrl}/producer/add`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(message)
+                    });
+
+                    if (response.ok) {
+                        gtag('event', 'register_usersqueue', {
+                            'event_category': 'E-commerce',
+                            'event_label': name,  // Use the users name as the label
+                            'value': 'register users'        // You can use the  as the event value
+                        });
+                        showToast("Users berhasil ditambahkan ke antrian rabbitmq");
+                        window.location.reload();
+                    } else {
+                        gtag('event', 'register_usersqueuefailed', {
+                            'event_category': 'E-commerce',
+                            'event_label': name,  // Use the product name as the label
+                            'value': 'register users'        // You can use the product's price as the event value
+                        });
+                        const errorMessage = await response.json();  // Get error message as JSON
+                        showToast(`Failed to send product information: ${errorMessage.error || errorMessage.message}`, 'error');
+                        window.location.reload();
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    window.location.reload();
+                }
+            }
+        });
+
+        // Fungsi validasi email
+        function validateEmail(email) {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email);
+        }
+    </script>
+    <script src="./js/config2.js"></script>
+</body>
+
+</html>

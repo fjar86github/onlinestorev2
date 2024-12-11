@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RabbitMQ Frontend - Product</title>
+    <style>
+        /* Simple styling for better UX */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>RabbitMQ Frontend - Product</h1>
+
+    <!-- Form for submitting product information -->
+    <div>
+        <h2>Submit Product Information</h2>
+        <form id="productForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" name="stock" required>
+
+            <label for="category_id">Category ID:</label>
+            <input type="number" id="category_id" name="category_id" required>
+
+            <label for="image">Image URL:</label>
+            <input type="text" id="image" name="image" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <!-- Feedback message -->
+        <div id="feedback" class="alert" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Base URL of the RabbitMQ API
+        const baseUrl = 'http://localhost:5000';
+
+        // Handle product submission
+        document.getElementById('productForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Get the token from localStorage
+            const token = localStorage.getItem('token');
+            if (!token) {
+                displayFeedback('Token is missing or expired. Please log in again.', 'error');
+                return;
+            }
+
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const stock = parseInt(document.getElementById('stock').value);
+            const category_id = parseInt(document.getElementById('category_id').value);
+            const image = document.getElementById('image').value;
+
+            // Validate the fields
+            if (!name || !description || isNaN(price) || isNaN(stock) || isNaN(category_id) || !image) {
+                displayFeedback('Please fill in all fields with valid data.', 'error');
+                return;
+            }
+
+            // Create the message to send, including the token
+            const message = {
+                token,
+                products: [{
+                    name,
+                    description,
+                    price,
+                    stock,
+                    category_id,
+                    image
+                }]
+            };
+
+            try {
+                const response = await fetch(`${baseUrl}/producer`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(message)
+                });
+
+                if (response.ok) {
+                    displayFeedback('Product information sent successfully!', 'success');
+                    document.getElementById('productForm').reset(); // Reset the form fields
+                } else {
+                    const errorMessage = await response.json();  // Get error message as JSON
+                    displayFeedback(`Failed to send product information: ${errorMessage.error || errorMessage.message}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                displayFeedback(`An error occurred while sending the product information: ${error.message || error}`, 'error');
+            }
+
+        });
+
+        // Function to display feedback messages
+        function displayFeedback(message, type) {
+            const feedbackDiv = document.getElementById('feedback');
+            feedbackDiv.textContent = message;
+            feedbackDiv.style.display = 'block';
+            if (type === 'success') {
+                feedbackDiv.classList.remove('alert-error');
+                feedbackDiv.classList.add('alert-success');
+            } else {
+                feedbackDiv.classList.remove('alert-success');
+                feedbackDiv.classList.add('alert-error');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengelolaan Produk</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6PQJL3LG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2K6PQJL3LG');
+  </script>
+</head>
+
+<body>
+  <header id="header"></header>
+  <div id="sidebar-wrapper">
+    <nav id="sidebar"></nav>
+  </div>
+  <!-- Chatbot Button -->
+  <div id="chatbot-button" class="chatbot-button">
+    <button class="btn btn-primary">Chat with Us</button>
+  </div>
+  <!-- Chatbot Container (hidden by default) -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <h5>Chatbot</h5>
+      <button id="close-chatbot" class="btn btn-sm btn-danger">X</button>
+    </div>
+    <div class="chatbot-body">
+      <div id="chatbox" class="chatbox">
+        <p>Halo, ini layanan pesan singkat untuk mengetahui informasi pada data spesifik yang anda pilih</p>
+        <p>Anda dapat memasukan dengan ketentuan:</p>
+        </p>
+        <p>product [spasi] nama produk</p>
+        <p>order [spasi] nomorpesanan</p>
+        <p>category [spasi] nama categori</p>
+      </div>
+      <input id="chat-input" type="text" placeholder="Type your message..." />
+      <button id="send-message" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+
+  <main class="container" style="margin-left: 250px; padding: 20px;">
+    <h1>Halaman Pengelolaan Produk</h1>
+    <p id="userGreeting">Memuat data pengguna...</p>
+
+    <div class="form-group">
+      <label for="productId">Id Produk:</label>
+      <input type="text" id="productId" class="form-control" placeholder="Id Produk" disabled>
+    </div>
+
+    <div class="form-group">
+      <label for="productName">Nama Produk:</label>
+      <input type="text" id="productName" class="form-control" placeholder="Masukkan nama produk">
+    </div>
+    <div class="form-group">
+      <label for="productDescription">Deskripsi Produk:</label>
+      <input type="text" id="productDescription" class="form-control" placeholder="Masukkan deskripsi produk">
+    </div>
+    <div class="form-group">
+      <label for="productPrice">Harga:</label>
+      <input type="number" id="productPrice" class="form-control" placeholder="Masukkan harga produk">
+    </div>
+    <div class="form-group">
+      <label for="productStock">Stok:</label>
+      <input type="number" id="productStock" class="form-control" placeholder="Masukkan stok produk">
+    </div>
+    <div class="form-group">
+      <label for="productCategory">Kategori ID:</label>
+      <select id="productCategory" class="form-control"></select>
+    </div>
+    <div class="form-group">
+      <label for="productimage">Url Image:</label>
+      <input type="text" id="productimage" class="form-control" placeholder="Masukkan url gambar produk">
+    </div>
+    <button class="btn btn-primary" id="saveProductButton" onclick="addProduct()">Tambah Produk</button>
+    <button class="btn btn-primary" id="updateProductButton" onclick="updateProduct()" disabled>Update Produk</button>
+    <button class="btn btn-warning" id="cancelProductButton" onclick="cancel()" disabled>Batal</button>
+
+    <hr>
+    <p>Daftar Produk:</p>
+    <div id="loadingProducts" class="text-center" style="display: none;">Memuat produk...</div>
+    <div id="loadingCategory" class="text-center" style="display: none;">Memuat kategori...</div>
+    <div class="input-group mb-3">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search for products..." />
+      <button class="btn btn-outline-primary" id="searchButton">Search</button>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Deskripsi</th>
+          <th>Harga</th>
+          <th>Stok</th>
+          <th>Kategori ID</th>
+          <th>Url Image</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="productContainer"></tbody>
+    </table>
+  </main>
+  <footer id="footer"></footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="js/manage-products.js"></script>
+  <script src="./js/config2.js"></script>
+  <script src="./js/chatbot.js"></script>
+</body>
+
+</html>

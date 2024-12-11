@@ -1,0 +1,9 @@
+{
+    "apiUrl": "http://localhost/onlinestorev2/index.php/api",
+    "rabbitmqmanageproducts": "http://localhost:5000",
+    "rabbitmqmanagecategory": "http://localhost:5001",
+    "rabbitmqcart": "http://localhost:5002",
+    "rabbitmqcheckout": "http://localhost:5003",
+    "rabbitmqusers": "http://localhost:5004",
+    "rabbitmqnotif": "http://localhost:5005"
+  }  

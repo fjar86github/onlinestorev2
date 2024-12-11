@@ -1,0 +1,49 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar    -brand" href="index.html">Online Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto" id="navItems">
+                    
+                </ul>
+
+                <!-- Menampilkan informasi pengguna secara dinamis -->
+                <ul class="navbar-nav ml-auto" id="userInfo" style="display: flex; align-items: center;">                   
+                    <li class="nav-item">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<style>
+    .navbar {
+        width: 100%;
+    }
+
+    .navbar-nav {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    #userInfo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0 15px;
+    }
+
+    @media (max-width: 767px) {
+        .navbar-nav {
+            flex-direction: column;
+        }
+    }
+</style>

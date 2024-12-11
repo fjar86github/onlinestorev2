@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Informasi Profil Pengguna</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6PQJL3LG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2K6PQJL3LG');
+  </script>
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <div id="sidebar"></div>
+  </div>
+  <!-- Chatbot Button -->
+  <div id="chatbot-button" class="chatbot-button">
+    <button class="btn btn-primary">Chat with Us</button>
+  </div>
+  <!-- Chatbot Container (hidden by default) -->
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <h5>Chatbot</h5>
+      <button id="close-chatbot" class="btn btn-sm btn-danger">X</button>
+    </div>
+    <div class="chatbot-body">
+      <div id="chatbox" class="chatbox">
+        <p>Halo, ini layanan pesan singkat untuk mengetahui informasi pada data spesifik yang anda pilih</p>
+        <p>Anda dapat memasukan dengan ketentuan:</p>
+        </p>
+        <p>product [spasi] nama produk</p>
+        <p>order [spasi] nomorpesanan</p>
+        <p>category [spasi] nama categori</p>
+      </div>
+      <input id="chat-input" type="text" placeholder="Type your message..." />
+      <button id="send-message" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main style="margin-left: 250px; padding: 20px;">
+    <h1>Welcome to Online Store</h1>
+    <p id="userGreeting">Loading...</p>
+    <div class="card profile-card">
+      <div class="card-header">
+        <h4>Profil Pengguna</h4>
+      </div>
+      <div class="card-body">
+        <div id="userProfile" class="text-center">
+          <!-- Placeholder for user profile data -->
+          <h5 id="userNameProfile">Nama Pengguna</h5>
+          <p id="userEmailProfile">email@example.com</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- External JavaScript -->
+  <script src="js/userprofile.js"></script>
+  <script src="./js/config2.js"></script>
+  <script src="./js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+# Menggunakan image Python resmi
+FROM python:3.9-slim
+
+# Menyalin file aplikasi Python ke dalam container
+COPY . /usr/src/app
+
+# Menetapkan direktori kerja untuk aplikasi
+WORKDIR /usr/src/app
+
+# Menginstal dependensi Python yang diperlukan
+RUN pip install --no-cache-dir pandas mysql-connector-python flask flask-cors scikit-learn textblob vaderSentiment pika
+
+# Menjalankan aplikasi Python (misalnya app.py)
+CMD ["python", "api/app.py"]

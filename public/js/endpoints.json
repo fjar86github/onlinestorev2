@@ -6,4 +6,4 @@
     "rabbitmqcheckout": "http://127.0.0.1:5003",
     "rabbitmqusers": "http://127.0.0.1:5004",
     "rabbitmqnotif": "http://127.0.0.1:5005"
-  }  
+  }

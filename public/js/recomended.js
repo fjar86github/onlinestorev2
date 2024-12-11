@@ -229,7 +229,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   await ApiConfig.loadConfig("rabbitmqcheckout"); // Memastikan konfigurasi dimuat
   rabbitmqcheckout = ApiConfig.getApiUrl();
   // Log semua variabel dalam satu objek
-  
+  console.log(rabbitmqmanageproducts);
   loadHTML('header', 'templates/header.html');
   loadHTML('sidebar', 'templates/sidebar.html');
   loadHTML('footer', 'templates/footer.html');

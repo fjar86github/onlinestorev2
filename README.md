@@ -1,6 +1,6 @@
 # Online Store with RESTful APIs, Data Science, and Microservices
 
-This is a complete online store project built using a combination of **Frontend**, **Backend**, **Data Science**, and **Microservices**. It provides an interactive shopping experience with advanced features such as product recommendations, stock predictions, and fault tolerance using RabbitMQ and JWT-based authentication.
+This is a complete online store project built using a combination of **Frontend**, **Backend**, **Data Science**, and **Microservices**. It provides an interactive shopping experience with advanced features such as product recommendations, stock predictions, and fault tolerance using RabbitMQ and JWT-based authentication and integrated with google data analytic.
 
 ## Features
 

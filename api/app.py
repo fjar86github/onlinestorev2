@@ -1,3 +1,7 @@
+#tambahan dari codespace agar bisa berinteraksi antar domain
+from flask_cors import cross_origin
+
+
 import pandas as pd
 import mysql.connector
 from flask import Flask, jsonify, request
@@ -199,14 +203,17 @@ def home():
     return jsonify({"message": "Welcome to the Inteliggent System Tokoonline Recommendation API!"})
 
 @app.route('/api/recommend_knn/<int:user_id>', methods=['GET'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def recommend_knn(user_id):
     return recommend_products_knn(user_id)
 
 @app.route('/api/recommend_svd/<int:user_id>', methods=['GET'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def recommend_svd(user_id):
     return recommend_products_svd(user_id)
 
 @app.route('/api/stock_demand', methods=['POST'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def predict_stock_demand():
     # Extract year and month from the request data
     data = request.get_json()
@@ -257,6 +264,7 @@ def predict_stock_demand():
 
 # API endpoint for sentiment analysis on a review
 @app.route('/analyze-sentiment', methods=['POST'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def analyze_sentiment_api():
     review_text = request.json.get("review_text")
     
@@ -268,6 +276,7 @@ def analyze_sentiment_api():
 
 # API endpoint to get all reviews and their sentiment
 @app.route('/get-reviews', methods=['GET'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def get_reviews_api():
     reviews = get_reviews()
     result = []
@@ -316,15 +325,18 @@ def send_to_rabbitmq(operation_type):
 
 
 @app.route('/producer/add', methods=['POST'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def producer_add():
     return send_to_rabbitmq('add')
 
 @app.route('/producer/update', methods=['PUT'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def producer_update():
     return send_to_rabbitmq('update')
 
 
 @app.route('/producer/delete', methods=['DELETE'])
+@cross_origin(origins="*")  # Explicitly apply CORS to this route
 def producer_delete():
     return send_to_rabbitmq('delete')
 

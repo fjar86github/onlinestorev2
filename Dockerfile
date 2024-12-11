@@ -1,8 +1,10 @@
-# Menggunakan image PHP 5.3 dengan Apache
-FROM php:5.3-apache
+# Menggunakan image PHP 7.4 dengan Apache
+FROM php:7.4-apache
 
-# Menginstal dependensi yang diperlukan
-RUN apt-get update && apt-get install -y libmysqlclient-dev
+# Menginstal dependensi yang diperlukan untuk pdo_mysql
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    && docker-php-ext-install pdo pdo_mysql
 
 # Mengaktifkan mod_rewrite untuk Apache
 RUN a2enmod rewrite

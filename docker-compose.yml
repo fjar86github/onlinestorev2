@@ -3,35 +3,36 @@ version: '3.8'
 services:
   # Layanan untuk PHP
   php:
-    build: .
-    dockerfile: Dockerfile  # Menentukan Dockerfile untuk Python
+    build:
+      context: .
+      dockerfile: Dockerfile  # Menentukan Dockerfile untuk PHP
     container_name: php5.3
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/html  # mount volume root direktori ke dalam container PHP
+      - .:/var/www/html  # Mount volume root direktori ke dalam container PHP
     networks:
       - app-network
     depends_on:
       - mysql
       - rabbitmq
-    restart: always
+    restart: always  # Container akan restart jika gagal atau dihentikan
 
   # Layanan untuk MySQL
   mysql:
     image: mysql:5.7
     container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # password root untuk MySQL
-      MYSQL_DATABASE: onlinestore  # database default yang akan dibuat
+      MYSQL_ROOT_PASSWORD: rootpassword  # Password root untuk MySQL
+      MYSQL_DATABASE: onlinestore  # Database default yang akan dibuat
     ports:
-      - "3306:3306"  # pastikan port MySQL dapat diakses
+      - "3306:3306"  # Pastikan port MySQL dapat diakses
     volumes:
-      - mysql-data:/var/lib/mysql  # volume untuk persisten data MySQL
-      - ./onlinestore.sql:/docker-entrypoint-initdb.d/onlinestore.sql  # mount file SQL dump untuk load otomatis
+      - mysql-data:/var/lib/mysql  # Volume untuk persisten data MySQL
+      - ./onlinestore.sql:/docker-entrypoint-initdb.d/onlinestore.sql  # Mount file SQL dump untuk load otomatis
     networks:
       - app-network
-    restart: always
+    restart: always  # Restart jika MySQL mengalami masalah
 
   # Layanan untuk RabbitMQ
   rabbitmq:
@@ -39,10 +40,10 @@ services:
     container_name: rabbitmq
     ports:
       - "5672:5672"
-      - "15672:15672"  # untuk akses management UI RabbitMQ
+      - "15672:15672"  # Untuk akses management UI RabbitMQ
     networks:
       - app-network
-    restart: always
+    restart: always  # Restart jika RabbitMQ bermasalah
 
   # Layanan untuk Python
   python:
@@ -51,17 +52,17 @@ services:
       dockerfile: Dockerfile-python  # Menentukan Dockerfile untuk Python
     container_name: python-app
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app  # Mount volume root direktori ke dalam container Python
     networks:
       - app-network
     depends_on:
       - mysql
       - rabbitmq
-    restart: always
+    restart: always  # Restart jika Python mengalami masalah
 
 networks:
   app-network:
-    driver: bridge
+    driver: bridge  # Gunakan driver bridge untuk jaringan
 
 # Volume untuk menyimpan data MySQL
 volumes:

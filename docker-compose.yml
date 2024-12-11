@@ -4,6 +4,7 @@ services:
   # Layanan untuk PHP
   php:
     build: .
+    dockerfile: Dockerfile  # Menentukan Dockerfile untuk Python
     container_name: php5.3
     ports:
       - "80:80"
@@ -14,6 +15,7 @@ services:
     depends_on:
       - mysql
       - rabbitmq
+    restart: always
 
   # Layanan untuk MySQL
   mysql:
@@ -29,6 +31,7 @@ services:
       - ./onlinestore.sql:/docker-entrypoint-initdb.d/onlinestore.sql  # mount file SQL dump untuk load otomatis
     networks:
       - app-network
+    restart: always
 
   # Layanan untuk RabbitMQ
   rabbitmq:
@@ -39,11 +42,13 @@ services:
       - "15672:15672"  # untuk akses management UI RabbitMQ
     networks:
       - app-network
+    restart: always
 
   # Layanan untuk Python
   python:
     build:
       context: .
+      dockerfile: Dockerfile-python  # Menentukan Dockerfile untuk Python
     container_name: python-app
     volumes:
       - .:/usr/src/app
@@ -52,6 +57,7 @@ services:
     depends_on:
       - mysql
       - rabbitmq
+    restart: always
 
 networks:
   app-network:

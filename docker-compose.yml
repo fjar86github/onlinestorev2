@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Layanan untuk PHP
+  php:
+    build: .
+    container_name: php5.3
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html  # mount volume root direktori ke dalam container PHP
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+      - rabbitmq
+
+  # Layanan untuk MySQL
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # password root untuk MySQL
+      MYSQL_DATABASE: onlinestore  # database default yang akan dibuat
+    ports:
+      - "3306:3306"  # pastikan port MySQL dapat diakses
+    volumes:
+      - mysql-data:/var/lib/mysql  # volume untuk persisten data MySQL
+      - ./onlinestore.sql:/docker-entrypoint-initdb.d/onlinestore.sql  # mount file SQL dump untuk load otomatis
+    networks:
+      - app-network
+
+  # Layanan untuk RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"  # untuk akses management UI RabbitMQ
+    networks:
+      - app-network
+
+  # Layanan untuk Python
+  python:
+    build:
+      context: .
+    container_name: python-app
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+      - rabbitmq
+
+networks:
+  app-network:
+    driver: bridge
+
+# Volume untuk menyimpan data MySQL
+volumes:
+  mysql-data:
